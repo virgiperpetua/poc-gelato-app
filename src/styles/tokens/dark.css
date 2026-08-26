@@ -1,0 +1,17 @@
+/**
+ * Virginia Perpetua tokens — dark theme.
+ */
+[data-theme='dark'] {
+  --vp-color-bg: #2d2b2b;
+  --vp-color-surface: #444141;
+  --vp-color-text: #f8f4f4;
+  --vp-color-text-muted: #bab6b6;
+  --vp-color-accent: #b494f7;
+  --vp-color-accent-strong: #d3c0fb;
+  --vp-color-on-accent: #2d2b2b;
+  --vp-color-divider: color-mix(in srgb, #ffffff 25%, transparent);
+
+  --vp-shadow-sm: 0 1px 2px color-mix(in srgb, #000000 40%, transparent);
+  --vp-shadow-md: 0 3px 10px color-mix(in srgb, #000000 45%, transparent);
+  --vp-shadow-lg: 0 12px 32px color-mix(in srgb, #000000 55%, transparent);
+}

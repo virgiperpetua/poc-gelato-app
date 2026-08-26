@@ -1,0 +1,62 @@
+/**
+ * Virginia Perpetua tokens — light theme.
+ * Source: src/tokens (DTCG). Prefix: --vp-
+ */
+:root,
+[data-theme='light'] {
+  --vp-color-neutral-100: #f8f4f4;
+  --vp-color-neutral-200: #eae7e7;
+  --vp-color-neutral-300: #d7d3d3;
+  --vp-color-neutral-400: #bab6b6;
+  --vp-color-neutral-500: #9b9797;
+  --vp-color-neutral-600: #7d7979;
+  --vp-color-neutral-700: #605d5d;
+  --vp-color-neutral-800: #444141;
+  --vp-color-neutral-900: #2d2b2b;
+
+  --vp-color-accent-100: #f5f1fe;
+  --vp-color-accent-200: #e9defd;
+  --vp-color-accent-300: #d3c0fb;
+  --vp-color-accent-400: #b494f7;
+  --vp-color-accent-500: #9b6ff3;
+  --vp-color-accent-600: #8451e8;
+  --vp-color-accent-700: #6935c4;
+  --vp-color-accent-800: #4f2696;
+  --vp-color-accent-900: #37196a;
+
+  --vp-color-bg: #f3f2f2;
+  --vp-color-surface: #eae9e9;
+  --vp-color-text: #201e1d;
+  --vp-color-text-muted: #7d7979;
+  --vp-color-accent: #9b6ff3;
+  --vp-color-accent-strong: #6935c4;
+  --vp-color-on-accent: #f3f2f2;
+  --vp-color-divider: color-mix(in srgb, #201e1d 40%, transparent);
+
+  --vp-font-heading: "Archivo", system-ui, sans-serif;
+  --vp-font-body: "Archivo", system-ui, sans-serif;
+  --vp-font-mono: ui-monospace, Menlo, monospace;
+  --vp-font-heading-weight: 800;
+  --vp-font-body-weight: 400;
+
+  --vp-space-1: 4px;
+  --vp-space-2: 8px;
+  --vp-space-3: 12px;
+  --vp-space-4: 16px;
+  --vp-space-6: 24px;
+  --vp-space-8: 32px;
+  --vp-space-section: 96px;
+  --vp-space-page-gutter: 48px;
+
+  --vp-radius-sm: 0px;
+  --vp-radius-md: 0px;
+  --vp-radius-lg: 0px;
+
+  --vp-content-max: 1200px;
+  --vp-content-reading: 680px;
+  --vp-content-project: 920px;
+
+  --vp-shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
+  --vp-shadow-md: 0 3px 10px color-mix(in srgb, #2d2b2b 16%, transparent);
+  --vp-shadow-lg: 0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent);
+}

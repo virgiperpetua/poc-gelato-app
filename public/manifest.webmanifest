@@ -1,0 +1,10 @@
+{
+  "name": "Churn Sheet",
+  "short_name": "Churn",
+  "description": "Gelato production planner",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3f2f2",
+  "theme_color": "#9b6ff3",
+  "icons": []
+}
