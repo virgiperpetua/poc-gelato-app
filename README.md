@@ -41,6 +41,18 @@ pnpm build   # static export → out/
 pnpm typecheck
 ```
 
+### Hosting base path
+
+GitHub Pages serves this repo under `/poc-gelato-app`, so the build bakes that
+prefix into every asset URL. Override it for other hosts:
+
+```sh
+NEXT_PUBLIC_BASE_PATH= pnpm build          # root domain
+NEXT_PUBLIC_BASE_PATH=/custom pnpm build   # other subpath
+```
+
+Live: https://virgiperpetua.github.io/poc-gelato-app/
+
 ## API transition
 
 1. Keep calling `createGelatoDataClient()` from features/providers only.
