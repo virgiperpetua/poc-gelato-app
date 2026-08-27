@@ -8,12 +8,14 @@ const archivo = Archivo({
   display: 'swap',
 });
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
 export const metadata: Metadata = {
   title: 'Churn Sheet — Gelato Production Planner',
   description:
     'Mobile-first gelato production planner for stock, churn priorities, wash steps, and production plans.',
   applicationName: 'Churn Sheet',
-  manifest: '/manifest.webmanifest',
+  manifest: `${basePath}/manifest.webmanifest`,
 };
 
 export const viewport: Viewport = {
