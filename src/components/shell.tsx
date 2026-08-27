@@ -5,6 +5,7 @@ import {
   IconBox,
   IconCalendar,
   IconChart,
+  IconDownload,
   IconFlavour,
   IconList,
   IconWorkflow,
@@ -52,7 +53,7 @@ export function BottomNav() {
 }
 
 export function TopBar() {
-  const { ui, clearRole } = useGelato();
+  const { ui, clearRole, setTab } = useGelato();
   if (!ui.role) return null;
   return (
     <header className="sticky top-0 z-20 flex items-center justify-between bg-bg px-4 pb-2.5 pt-3.5">
@@ -62,14 +63,30 @@ export function TopBar() {
         </div>
         <div className="font-heading text-[16.5px] font-bold text-accent-strong">Churn Sheet</div>
       </div>
-      <button
-        type="button"
-        onClick={clearRole}
-        className="flex items-center gap-1.5 border border-line bg-bg-surface px-2.5 py-1.5 text-[12.5px] font-semibold capitalize text-fg-muted"
-      >
-        <span className="h-1.5 w-1.5 bg-accent" />
-        {ui.role}
-      </button>
+      <div className="flex items-center gap-2">
+        {ui.role === 'manager' ? (
+          <button
+            type="button"
+            onClick={() => setTab('data')}
+            aria-label="Export or import data"
+            className={`flex items-center border px-2 py-1.5 ${
+              ui.tab === 'data'
+                ? 'border-accent bg-accent text-accent-on'
+                : 'border-line bg-bg-surface text-fg-muted'
+            }`}
+          >
+            <IconDownload size={15} />
+          </button>
+        ) : null}
+        <button
+          type="button"
+          onClick={clearRole}
+          className="flex items-center gap-1.5 border border-line bg-bg-surface px-2.5 py-1.5 text-[12.5px] font-semibold capitalize text-fg-muted"
+        >
+          <span className="h-1.5 w-1.5 bg-accent" />
+          {ui.role}
+        </button>
+      </div>
     </header>
   );
 }

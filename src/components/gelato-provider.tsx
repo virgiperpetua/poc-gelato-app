@@ -11,6 +11,7 @@ import {
 } from 'react';
 import { createGelatoDataClient, type GelatoRepository } from '@/data';
 import { generatePlans } from '@/domain/engine';
+import { parseSnapshot } from '@/domain/snapshot';
 import type {
   CountPhase,
   FlavourSub,
@@ -48,6 +49,8 @@ interface GelatoContextValue {
   patchDb: <K extends StorageKey>(key: K, value: GelatoDb[K]) => Promise<void>;
   replaceDb: (next: GelatoDb, persist?: boolean) => Promise<void>;
   runGeneratePlans: () => Promise<string[]>;
+  importSnapshotText: (text: string) => Promise<{ ok: boolean; error?: string }>;
+  resetToSeed: () => Promise<void>;
 }
 
 const GelatoContext = createContext<GelatoContextValue | null>(null);
@@ -120,6 +123,26 @@ export function GelatoProvider({ children }: { children: ReactNode }) {
     return dates;
   }, [db, replaceDb, showToast]);
 
+  const importSnapshotText = useCallback(
+    async (text: string) => {
+      const result = parseSnapshot(text);
+      if (!result.ok) return { ok: false, error: result.error };
+      await replaceDb(result.snapshot.data);
+      setUi((u) => ({ ...u, planDate: null, bakeDate: null }));
+      showToast('Snapshot imported');
+      return { ok: true };
+    },
+    [replaceDb, showToast],
+  );
+
+  const resetToSeed = useCallback(async () => {
+    await repo.clear();
+    const fresh = await repo.load();
+    setDb(fresh);
+    setUi((u) => ({ ...u, planDate: null, bakeDate: null }));
+    showToast('Reset to seed data');
+  }, [repo, showToast]);
+
   const value = useMemo<GelatoContextValue>(
     () => ({
       loaded,
@@ -137,8 +160,20 @@ export function GelatoProvider({ children }: { children: ReactNode }) {
       patchDb,
       replaceDb,
       runGeneratePlans,
+      importSnapshotText,
+      resetToSeed,
     }),
-    [loaded, db, ui, showToast, patchDb, replaceDb, runGeneratePlans],
+    [
+      loaded,
+      db,
+      ui,
+      showToast,
+      patchDb,
+      replaceDb,
+      runGeneratePlans,
+      importSnapshotText,
+      resetToSeed,
+    ],
   );
 
   return <GelatoContext.Provider value={value}>{children}</GelatoContext.Provider>;

@@ -90,5 +90,8 @@ export function createLocalStorageRepository(): GelatoRepository {
     async saveAll(db) {
       for (const key of STORAGE_KEYS) writeKey(key, db[key]);
     },
+    async clear() {
+      for (const key of STORAGE_KEYS) window.localStorage.removeItem(PREFIX + key);
+    },
   };
 }
