@@ -10,6 +10,7 @@ import { BakeView } from '@/features/bake/bake-view';
 import { StockView } from '@/features/stock/stock-view';
 import { FlavoursView } from '@/features/flavours/flavours-view';
 import { ReportsView } from '@/features/reports/reports-view';
+import { DataView } from '@/features/data/data-view';
 
 function AppInner() {
   const { loaded, ui } = useGelato();
@@ -35,6 +36,7 @@ function AppInner() {
         {ui.tab === 'stock' ? <StockView /> : null}
         {ui.tab === 'flavours' ? <FlavoursView /> : null}
         {ui.tab === 'reports' ? <ReportsView /> : null}
+        {ui.tab === 'data' ? <DataView /> : null}
       </main>
       <BottomNav />
       {ui.toast ? (

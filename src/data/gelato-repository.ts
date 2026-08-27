@@ -11,4 +11,6 @@ export interface GelatoRepository {
   load(): Promise<GelatoDb>;
   save(key: StorageKey, value: GelatoDb[StorageKey]): Promise<void>;
   saveAll(db: GelatoDb): Promise<void>;
+  /** Drop everything so the next `load()` re-seeds. Maps to a reset endpoint later. */
+  clear(): Promise<void>;
 }

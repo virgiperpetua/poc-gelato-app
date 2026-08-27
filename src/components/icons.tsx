@@ -90,6 +90,20 @@ export function IconMinus(p: IconProps) {
     </svg>
   );
 }
+export function IconDownload(p: IconProps) {
+  return (
+    <svg {...base(p)}>
+      <path d="M12 3v12M7 11l5 5 5-5M4 21h16" />
+    </svg>
+  );
+}
+export function IconUpload(p: IconProps) {
+  return (
+    <svg {...base(p)}>
+      <path d="M12 16V4M7 8l5-5 5 5M4 21h16" />
+    </svg>
+  );
+}
 export function IconAlert(p: IconProps) {
   return (
     <svg {...base(p)}>

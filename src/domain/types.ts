@@ -2,7 +2,15 @@
 
 export type Role = 'manager' | 'churner' | 'staff';
 
-export type TabId = 'today' | 'plan' | 'workflow' | 'bake' | 'stock' | 'flavours' | 'reports';
+export type TabId =
+  | 'today'
+  | 'plan'
+  | 'workflow'
+  | 'bake'
+  | 'stock'
+  | 'flavours'
+  | 'reports'
+  | 'data';
 
 export type StockSub = 'count' | 'delivery' | 'alerts';
 export type FlavourSub = 'list' | 'specials' | 'groups';
