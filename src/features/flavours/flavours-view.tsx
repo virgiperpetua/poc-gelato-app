@@ -1,24 +1,85 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useGelato } from '@/components/gelato-provider';
 import { Badge, Card, CardTitle, Empty, PageHead } from '@/components/ui';
 import { getGroups, groupInfo } from '@/domain/engine';
 import { alpha } from '@/domain/format';
+import type { Flavour, GelatoDb } from '@/domain/types';
+import { FlavourEditPanel } from './flavour-edit-panel';
+
+function FlavourRow({
+  db,
+  f,
+  editing,
+  onToggle,
+  onSave,
+  onCancel,
+}: {
+  db: GelatoDb;
+  f: Flavour;
+  editing: boolean;
+  onToggle: () => void;
+  onSave: (flavour: Flavour) => Promise<void>;
+  onCancel: () => void;
+}) {
+  const g = groupInfo(db, f.group);
+  return (
+    <li>
+      <button
+        type="button"
+        onClick={onToggle}
+        className={`w-full border px-3 py-2 text-left transition-colors ${
+          editing ? 'border-accent bg-accent/10' : 'border-line bg-bg hover:bg-bg-surface'
+        }`}
+      >
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 font-semibold">
+            <span className="h-2.5 w-2.5" style={{ background: g.color }} />
+            {f.name}
+          </div>
+          <div className="flex gap-1">
+            {f.popular ? <Badge tone="accent">Popular</Badge> : null}
+            {f.isSpecial ? <Badge tone="amber">Special</Badge> : null}
+            {!f.active ? <Badge tone="neutral">Inactive</Badge> : null}
+          </div>
+        </div>
+        <div className="mono mt-1 text-[11px] text-fg-muted">
+          {g.name} · PAR {f.par} · yield {f.yieldPotsPerBladder}/bladder
+        </div>
+        {f.allergenNotes ? (
+          <div className="mt-1 text-[12px] text-fg-muted">{f.allergenNotes}</div>
+        ) : null}
+      </button>
+      {editing ? (
+        <FlavourEditPanel db={db} flavourId={f.id} onCancel={onCancel} onSave={onSave} />
+      ) : null}
+    </li>
+  );
+}
 
 export function FlavoursView() {
-  const { db, ui, setFlavourSub } = useGelato();
+  const { db, ui, setFlavourSub, patchDb, showToast } = useGelato();
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const list = useMemo(() => alpha(db?.flavours ?? []), [db?.flavours]);
   if (!db) return null;
 
-  const list = useMemo(() => alpha(db.flavours), [db.flavours]);
+  const data = db;
   const specials = list.filter((f) => f.isSpecial && f.active);
-  const groups = getGroups(db);
+  const groups = getGroups(data);
 
   const subs = [
     { id: 'list' as const, label: 'All' },
     { id: 'specials' as const, label: 'Specials' },
     { id: 'groups' as const, label: 'Groups' },
   ];
+
+  async function saveFlavour(updated: Flavour) {
+    const flavours = data.flavours.map((f) => (f.id === updated.id ? updated : f));
+    await patchDb('flavours', flavours);
+    setEditingId(null);
+    showToast('Flavour saved');
+  }
 
   return (
     <div>
@@ -28,7 +89,10 @@ export function FlavoursView() {
           <button
             key={s.id}
             type="button"
-            onClick={() => setFlavourSub(s.id)}
+            onClick={() => {
+              setFlavourSub(s.id);
+              setEditingId(null);
+            }}
             className={`border px-3 py-1.5 text-[12px] font-semibold ${
               ui.flavourSub === s.id ? 'border-accent bg-accent text-accent-on' : 'border-line bg-bg-surface'
             }`}
@@ -41,31 +105,19 @@ export function FlavoursView() {
       {ui.flavourSub === 'list' ? (
         <Card>
           <CardTitle>{list.length} flavours</CardTitle>
+          <p className="mb-2 text-[12px] text-fg-muted">Tap a flavour to edit.</p>
           <ul className="max-h-[60vh] space-y-2 overflow-auto">
-            {list.map((f) => {
-              const g = groupInfo(db, f.group);
-              return (
-                <li key={f.id} className="border border-line bg-bg px-3 py-2">
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2 font-semibold">
-                      <span className="h-2.5 w-2.5" style={{ background: g.color }} />
-                      {f.name}
-                    </div>
-                    <div className="flex gap-1">
-                      {f.popular ? <Badge tone="accent">Popular</Badge> : null}
-                      {f.isSpecial ? <Badge tone="amber">Special</Badge> : null}
-                      {!f.active ? <Badge tone="neutral">Inactive</Badge> : null}
-                    </div>
-                  </div>
-                  <div className="mono mt-1 text-[11px] text-fg-muted">
-                    {g.name} · PAR {f.par} · yield {f.yieldPotsPerBladder}/bladder
-                  </div>
-                  {f.allergenNotes ? (
-                    <div className="mt-1 text-[12px] text-fg-muted">{f.allergenNotes}</div>
-                  ) : null}
-                </li>
-              );
-            })}
+            {list.map((f) => (
+              <FlavourRow
+                key={f.id}
+                db={data}
+                f={f}
+                editing={editingId === f.id}
+                onToggle={() => setEditingId(editingId === f.id ? null : f.id)}
+                onSave={saveFlavour}
+                onCancel={() => setEditingId(null)}
+              />
+            ))}
           </ul>
         </Card>
       ) : null}
@@ -78,11 +130,15 @@ export function FlavoursView() {
           ) : (
             <ul className="space-y-2">
               {specials.map((f) => (
-                <li key={f.id} className="border border-line bg-bg px-3 py-2">
-                  <div className="font-semibold">{f.name}</div>
-                  {f.groupUnconfirmed ? <Badge tone="amber">Group unconfirmed</Badge> : null}
-                  {f.notes ? <p className="mt-1 text-[12px] text-fg-muted">{f.notes}</p> : null}
-                </li>
+                <FlavourRow
+                  key={f.id}
+                  db={data}
+                  f={f}
+                  editing={editingId === f.id}
+                  onToggle={() => setEditingId(editingId === f.id ? null : f.id)}
+                  onSave={saveFlavour}
+                  onCancel={() => setEditingId(null)}
+                />
               ))}
             </ul>
           )}
@@ -94,7 +150,7 @@ export function FlavoursView() {
           <CardTitle>Wash groups</CardTitle>
           <ul className="space-y-2">
             {groups.map((g) => {
-              const count = db.flavours.filter((f) => f.group === g.id && f.active).length;
+              const count = data.flavours.filter((f) => f.group === g.id && f.active).length;
               return (
                 <li key={g.id} className="flex items-center justify-between border border-line bg-bg px-3 py-2">
                   <div className="flex items-center gap-2 font-semibold">
@@ -106,9 +162,9 @@ export function FlavoursView() {
               );
             })}
           </ul>
-          {db['wash-config'].specialRule ? (
+          {data['wash-config'].specialRule ? (
             <p className="mt-3 text-[12px] text-fg-muted">
-              Special rule: {db['wash-config'].specialRule.label}
+              Special rule: {data['wash-config'].specialRule.label}
             </p>
           ) : null}
         </Card>
