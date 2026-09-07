@@ -97,6 +97,13 @@ export function IconDownload(p: IconProps) {
     </svg>
   );
 }
+export function IconGitHub(p: IconProps) {
+  return (
+    <svg {...base(p)}>
+      <path d="M9 19c-4.5 1.4-4.5-2.5-6.3-3m12.6 6v-3.5a3 3 0 0 0-.9-2.3c3-.3 6.2-1.5 6.2-6.9a5.3 5.3 0 0 0-1.4-3.7 4.9 4.9 0 0 0-.1-3.7s-1.2-.4-3.9 1.4a13.5 13.5 0 0 0-7 0C5.5 1.2 4.3 1.6 4.3 1.6a4.9 4.9 0 0 0-.1 3.7 5.3 5.3 0 0 0-1.4 3.7c0 5.4 3.2 6.6 6.2 6.9a3 3 0 0 0-.9 2.3V22" />
+    </svg>
+  );
+}
 export function BrandLogo({
   size = 28,
   className,

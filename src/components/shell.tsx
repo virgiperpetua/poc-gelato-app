@@ -8,6 +8,7 @@ import {
   IconChart,
   IconDownload,
   IconFlavour,
+  IconGitHub,
   IconList,
   IconWorkflow,
 } from '@/components/icons';
@@ -53,12 +54,6 @@ export function BottomNav() {
   );
 }
 
-const FOOTER_LINKS = [
-  { href: 'https://virgiperpetua.github.io/', label: 'Virginia Perpetua' },
-  { href: 'https://github.com/virgiperpetua/poc-gelato-marketing', label: 'Marketing Repo' },
-  { href: 'https://github.com/virgiperpetua/poc-gelato-app', label: 'App Repo' },
-];
-
 export function TopBar() {
   const { ui, clearRole, setTab } = useGelato();
   if (!ui.role) return null;
@@ -103,17 +98,31 @@ export function AppFooter() {
     <footer className="border-t border-line px-4 py-4 text-center text-[12px] text-fg-muted">
       <div className="mb-2 font-medium text-fg">More about this project</div>
       <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
-        {FOOTER_LINKS.map((link) => (
-          <a
-            key={link.href}
-            href={link.href}
-            target="_blank"
-            rel="noreferrer"
-            className="underline decoration-line underline-offset-2 transition hover:text-accent-strong"
-          >
-            {link.label}
-          </a>
-        ))}
+        <a
+          href="https://virgiperpetua.com"
+          target="_blank"
+          rel="noreferrer"
+          className="underline decoration-line underline-offset-2 transition hover:text-accent-strong"
+        >
+          My Marketing Page
+        </a>
+        <a
+          href="https://gelato.virgiperpetua.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="underline decoration-line underline-offset-2 transition hover:text-accent-strong"
+        >
+          Marketing Gelato URL
+        </a>
+        <a
+          href="https://github.com/virgiperpetua/poc-gelato-app"
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-1 underline decoration-line underline-offset-2 transition hover:text-accent-strong"
+        >
+          <IconGitHub size={14} />
+          App Repo
+        </a>
       </div>
     </footer>
   );
