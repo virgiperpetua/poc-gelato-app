@@ -30,6 +30,10 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
+        env:
+          NEXT_PUBLIC_BASE_PATH: ''
+      - name: Ensure CNAME
+        run: echo 'app.gelato.virgiperpetua.com' > out/CNAME
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
