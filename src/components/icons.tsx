@@ -97,6 +97,35 @@ export function IconDownload(p: IconProps) {
     </svg>
   );
 }
+export function BrandLogo({
+  size = 28,
+  className,
+  ...props
+}: SVGProps<SVGSVGElement> & { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 64 64"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+      {...props}
+    >
+      <rect x="4" y="4" width="56" height="56" rx="18" fill="currentColor" />
+      <path
+        d="M32 14c-8 10-15 16-15 25.2C17 48 23.7 54 32 54s15-6 15-14.8C47 30 40 24 32 14Z"
+        fill="white"
+        fillOpacity="0.96"
+      />
+      <path
+        d="M31.8 19.7c-3.2 4.2-9.5 8.6-9.5 17 0 5.9 4.4 10.7 9.8 10.7 1.9 0 3.8-.6 5.2-1.6-6.1-.2-11-5.4-11-11.8 0-4.8 2.6-8.6 5.5-12.1Z"
+        fill="#F5D2B4"
+        fillOpacity="0.92"
+      />
+    </svg>
+  );
+}
 export function IconUpload(p: IconProps) {
   return (
     <svg {...base(p)}>

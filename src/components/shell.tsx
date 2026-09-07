@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  BrandLogo,
   IconBake,
   IconBox,
   IconCalendar,
@@ -58,8 +59,8 @@ export function TopBar() {
   return (
     <header className="sticky top-0 z-20 flex items-center justify-between bg-bg px-4 pb-2.5 pt-3.5">
       <div className="flex items-center gap-2.5">
-        <div className="flex h-7 w-7 items-center justify-center bg-accent text-accent-on">
-          <IconFlavour size={16} />
+        <div className="flex h-8 w-8 items-center justify-center text-accent">
+          <BrandLogo size={32} />
         </div>
         <div className="font-heading text-[16.5px] font-bold text-accent-strong">Churn Sheet</div>
       </div>
