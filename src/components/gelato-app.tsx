@@ -23,7 +23,14 @@ function AppInner() {
     );
   }
 
-  if (!ui.role) return <RoleScreen />;
+  if (!ui.role) {
+    return (
+      <div className="mx-auto flex min-h-screen max-w-[560px] flex-col bg-bg">
+        <RoleScreen />
+        <AppFooter />
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto min-h-screen max-w-[560px] bg-bg pb-[78px]">
