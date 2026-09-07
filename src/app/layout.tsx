@@ -14,7 +14,7 @@ const metadataBase = new URL(siteUrl);
 const title = 'Churn Sheet | Gelato Production Planner';
 const description =
   'Plan churns, track stock, sequence wash steps, and manage daily gelato production from one mobile-first workspace.';
-const iconPath = `${basePath}/icon.svg`;
+const iconPath = `${basePath}/logo-mark.svg`;
 
 export const metadata: Metadata = {
   metadataBase,
