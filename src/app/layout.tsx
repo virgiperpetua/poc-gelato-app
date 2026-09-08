@@ -15,6 +15,8 @@ const title = 'Churn Sheet | Gelato Production Planner';
 const description =
   'Plan churns, track stock, sequence wash steps, and manage daily gelato production from one mobile-first workspace.';
 const iconPath = `${basePath}/logo-mark.svg`;
+const appleIconPath = `${basePath}/apple-touch-icon.png`;
+const canonicalPath = basePath || '/';
 
 export const metadata: Metadata = {
   metadataBase,
@@ -24,9 +26,10 @@ export const metadata: Metadata = {
   keywords: ['gelato', 'production planner', 'kitchen operations', 'stock planning', 'churn sheet'],
   category: 'business',
   alternates: {
-    canonical: basePath || '/',
+    canonical: canonicalPath,
   },
   openGraph: {
+    url: canonicalPath,
     title,
     description,
     type: 'website',
@@ -42,7 +45,7 @@ export const metadata: Metadata = {
   icons: {
     icon: iconPath,
     shortcut: iconPath,
-    apple: iconPath,
+    apple: { url: appleIconPath, sizes: '180x180', type: 'image/png' },
   },
   manifest: `${basePath}/manifest.webmanifest`,
 };
