@@ -25,7 +25,7 @@ const ROLES: Array<{ id: Role; title: string; blurb: string }> = [
 export function RoleScreen() {
   const { setRole } = useGelato();
   return (
-    <div className="mx-auto flex min-h-screen max-w-[560px] flex-col justify-center px-4 py-10">
+    <div className="mx-auto flex max-w-[560px] flex-1 flex-col justify-center px-4 py-10">
       <div className="mb-8">
         <div className="mono mb-2 text-[12px] tracking-wide text-accent-strong">CHURN SHEET</div>
         <h1 className="m-0 text-[28px] text-accent-strong">Who’s on shift?</h1>

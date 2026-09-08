@@ -1,12 +1,14 @@
 'use client';
 
 import {
+  BrandLogo,
   IconBake,
   IconBox,
   IconCalendar,
   IconChart,
   IconDownload,
   IconFlavour,
+  IconGitHub,
   IconList,
   IconWorkflow,
 } from '@/components/icons';
@@ -58,8 +60,8 @@ export function TopBar() {
   return (
     <header className="sticky top-0 z-20 flex items-center justify-between bg-bg px-4 pb-2.5 pt-3.5">
       <div className="flex items-center gap-2.5">
-        <div className="flex h-7 w-7 items-center justify-center bg-accent text-accent-on">
-          <IconFlavour size={16} />
+        <div className="flex h-8 w-8 items-center justify-center text-accent">
+          <BrandLogo size={32} />
         </div>
         <div className="font-heading text-[16.5px] font-bold text-accent-strong">Churn Sheet</div>
       </div>
@@ -88,5 +90,40 @@ export function TopBar() {
         </button>
       </div>
     </header>
+  );
+}
+
+export function AppFooter() {
+  return (
+    <footer className="border-t border-line px-4 py-4 text-center text-[12px] text-fg-muted">
+      <div className="mb-2 font-medium text-fg">More about this project</div>
+      <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
+        <a
+          href="https://virgiperpetua.com"
+          target="_blank"
+          rel="noreferrer"
+          className="underline decoration-line underline-offset-2 transition hover:text-accent-strong"
+        >
+          My Marketing Page
+        </a>
+        <a
+          href="https://gelato.virgiperpetua.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="underline decoration-line underline-offset-2 transition hover:text-accent-strong"
+        >
+          Marketing Gelato URL
+        </a>
+        <a
+          href="https://github.com/virgiperpetua/poc-gelato-app"
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-1 underline decoration-line underline-offset-2 transition hover:text-accent-strong"
+        >
+          <IconGitHub size={14} />
+          App Repo
+        </a>
+      </div>
+    </footer>
   );
 }

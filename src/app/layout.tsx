@@ -9,12 +9,44 @@ const archivo = Archivo({
 });
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://virgiperpetua.github.io';
+const metadataBase = new URL(siteUrl);
+const title = 'Churn Sheet | Gelato Production Planner';
+const description =
+  'Plan churns, track stock, sequence wash steps, and manage daily gelato production from one mobile-first workspace.';
+const iconPath = `${basePath}/logo-mark.svg`;
+const appleIconPath = `${basePath}/apple-touch-icon.png`;
+const canonicalPath = basePath || '/';
 
 export const metadata: Metadata = {
-  title: 'Churn Sheet — Gelato Production Planner',
-  description:
-    'Mobile-first gelato production planner for stock, churn priorities, wash steps, and production plans.',
+  metadataBase,
+  title,
+  description,
   applicationName: 'Churn Sheet',
+  keywords: ['gelato', 'production planner', 'kitchen operations', 'stock planning', 'churn sheet'],
+  category: 'business',
+  alternates: {
+    canonical: canonicalPath,
+  },
+  openGraph: {
+    url: canonicalPath,
+    title,
+    description,
+    type: 'website',
+    siteName: 'Churn Sheet',
+    images: [{ url: iconPath, width: 512, height: 512, alt: 'Churn Sheet logo' }],
+  },
+  twitter: {
+    card: 'summary',
+    title,
+    description,
+    images: [iconPath],
+  },
+  icons: {
+    icon: iconPath,
+    shortcut: iconPath,
+    apple: { url: appleIconPath, sizes: '180x180', type: 'image/png' },
+  },
   manifest: `${basePath}/manifest.webmanifest`,
 };
 

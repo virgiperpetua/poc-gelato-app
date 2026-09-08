@@ -1,6 +1,6 @@
 'use client';
 
-import { BottomNav, TopBar } from '@/components/shell';
+import { AppFooter, BottomNav, TopBar } from '@/components/shell';
 import { GelatoProvider, useGelato } from '@/components/gelato-provider';
 import { RoleScreen } from '@/features/role/role-screen';
 import { TodayView } from '@/features/today/today-view';
@@ -23,7 +23,14 @@ function AppInner() {
     );
   }
 
-  if (!ui.role) return <RoleScreen />;
+  if (!ui.role) {
+    return (
+      <div className="mx-auto flex min-h-screen max-w-[560px] flex-col bg-bg">
+        <RoleScreen />
+        <AppFooter />
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto min-h-screen max-w-[560px] bg-bg pb-[78px]">
@@ -38,6 +45,7 @@ function AppInner() {
         {ui.tab === 'reports' ? <ReportsView /> : null}
         {ui.tab === 'data' ? <DataView /> : null}
       </main>
+      <AppFooter />
       <BottomNav />
       {ui.toast ? (
         <div className="fixed bottom-24 left-1/2 z-50 -translate-x-1/2 border border-line bg-accent-strong px-3 py-2 text-[13px] font-semibold text-accent-on shadow-md">
